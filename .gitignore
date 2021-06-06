@@ -1,0 +1,7 @@
+.bsp/
+.idea/
+bindings/
+project/target/
+project/project/
+target/
+lowered.hnir

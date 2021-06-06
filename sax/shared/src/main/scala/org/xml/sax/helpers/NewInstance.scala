@@ -1,0 +1,71 @@
+// NewInstance.java - create a new instance of a class by name.
+// http://www.saxproject.org
+// Written by Edwin Goei, edwingo@apache.org
+// and by David Brownell, dbrownell@users.sourceforge.net
+// NO WARRANTY!  This class is in the Public Domain.
+// $Id: NewInstance.java,v 1.4 2002/01/30 20:52:27 dbrownell Exp $
+package org.xml.sax.helpers
+
+import java.lang.reflect.InvocationTargetException
+
+/**
+ * Create a new instance of a class by name.
+ *
+ * <blockquote>
+ * <em>This module, both source code and documentation, is in the
+ * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em>
+ * See <a href='http://www.saxproject.org'>http://www.saxproject.org</a>
+ * for further information.
+ * </blockquote>
+ *
+ * <p>This class contains a static method for creating an instance of a
+ * class from an explicit class name.  It tries to use the thread's context
+ * ClassLoader if possible and falls back to using
+ * Class.forName(String).</p>
+ *
+ * <p>This code is designed to compile and run on JDK version 1.1 and later
+ * including versions of Java 2.</p>
+ *
+ * @author Edwin Goei, David Brownell
+ * @version 2.0.1 (sax2r2)
+ */
+object NewInstance {
+
+  /**
+   * Creates a new instance of the specified class name
+   *
+   * Package private so this code is not exposed at the API level.
+   */
+  @throws[ClassNotFoundException]
+  @throws[IllegalAccessException]
+  @throws[InstantiationException]
+  private[helpers] def newInstance(classLoader: ClassLoader, className: String): Any = {
+    val driverClass = if (classLoader == null) Class.forName(className)
+    else classLoader.loadClass(className)
+    driverClass.newInstance()
+  }
+
+  /**
+   * Figure out which ClassLoader to use.  For JDK 1.2 and later use
+   * the context ClassLoader.
+   */
+  def getClassLoader(): ClassLoader = {   //private[helpers]
+
+    val m = try classOf[Thread].getMethod("getContextClassLoader")
+    catch {
+      case e: NoSuchMethodException =>
+        // Assume that we are running JDK 1.1, use the current ClassLoader
+        return this.getClass.getClassLoader()
+    }
+
+    try m.invoke(Thread.currentThread).asInstanceOf[ClassLoader]
+    catch {
+      case e: IllegalAccessException =>
+        // assert(false)
+        throw new UnknownError(e.getMessage)
+      case e: InvocationTargetException =>
+        // assert(e.getTargetException() instanceof SecurityException)
+        throw new UnknownError(e.getMessage)
+    }
+  }
+}
