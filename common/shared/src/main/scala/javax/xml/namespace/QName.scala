@@ -19,7 +19,6 @@
 
 package javax.xml.namespace
 
-import javax.xml
 import javax.xml.XMLConstants
 
 /**

@@ -10,7 +10,7 @@
  * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
  */
 
-package org.w3c.dom.dom
+package org.w3c.dom
 
 /**
  * The <code>TypeInfo</code> interface represents a type referenced from

@@ -10,7 +10,7 @@
  * [1] http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
  */
 
-package org.w3c.dom.dom.ls
+package org.w3c.dom.ls
 
 /**
  * <code>LSResourceResolver</code> provides a way for applications to

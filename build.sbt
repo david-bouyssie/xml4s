@@ -61,7 +61,8 @@ lazy val root = (project in file("."))
 
 val commonSettings: Seq[Setting[_]] = Seq(
   version := "0.1.0",
-  scalacOptions ++= Seq("-deprecation", "-feature") // "-Xfatal-warnings"),
+  // scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xsource:3")
+  scalacOptions ++= Seq("-deprecation", "-feature")
 )
 
 val modulesCommonSettings: Seq[Setting[_]] = commonSettings ++ Seq(
@@ -83,7 +84,7 @@ lazy val xml4sCommonAPI = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Full)
   .in(file("common"))
   .settings(modulesCommonSettings)
-  .settings(skipPublish: _*)
+  .settings(name := "xml4s-common-api")
   .jsSettings(crossScalaVersions := versionsJS)
   .nativeSettings(modulesNativeSettings)
 
@@ -106,6 +107,7 @@ lazy val xml4sSax = crossProject(JSPlatform, NativePlatform)
   .crossType(CrossType.Full)
   .in(file("sax"))
   .settings(modulesCommonSettings)
+  .settings(name := "xml4s-sax-api")
   .dependsOn(xml4sCommonAPI)
   .jsSettings(crossScalaVersions := versionsJS)
   .nativeSettings(modulesNativeSettings)
@@ -153,6 +155,7 @@ lazy val xml4sXmlPull = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Full)
   .in(file("xmlpull"))
   .settings(modulesCommonSettings)
+  .settings(name := "xml4s-xmlpull-api")
   .dependsOn(xml4sCommonAPI)
   .jsSettings(crossScalaVersions := versionsJS)
   .jsConfigure(_.dependsOn(xml4sSaxJS))
