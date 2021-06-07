@@ -5,7 +5,7 @@ The Scala language, has 3 main backends nowadays:
 * the Scala.js Compiler
 * the Scala Native Compiler (based on LLVM)
 
-While the Scala.js and Scala Native platforms provide support for a good subset of the Java APIs, XML support is not yet a implemented.
+While the Scala.js and Scala Native platforms provide support for a good subset of the Java APIs, XML support is not yet implemented.
 
 XML4S is an attempt to fill this gap, and thus to provide XML related Java APIs (a.k.a. JAXP) to the JS and Native platforms.
 
@@ -15,7 +15,7 @@ XML4S is an attempt to fill this gap, and thus to provide XML related Java APIs 
 
 XML4S components were ported from two open source projects:
 * Android (https://source.android.com/)
-* Apache Geronimo (http://geronimo.apache.org/), for the Stax API (work in progress (not yet committed)
+* Apache Geronimo (http://geronimo.apache.org/), for the Stax API (work in progress, not yet committed)
 
 Here is a table describing the licenses applying to each individual component:
 
